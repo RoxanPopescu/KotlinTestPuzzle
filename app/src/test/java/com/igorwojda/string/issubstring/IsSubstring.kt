@@ -3,49 +3,39 @@ package com.igorwojda.string.issubstring
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
-private fun isSubstring(str: String, subStr: String): Boolean {
-    if (subStr.isEmpty()) return true
-    if (str.isEmpty() && subStr.isNotEmpty()) return false
+private fun isSubstring(str: String, str2: String): Boolean {
+    if (str2.isEmpty()) return true
+    if (str.isEmpty() && str2.isNotEmpty()) return false
 
-    fun helper(first: String, second: String, firstPointer1: Int = 0, secondPointer2: Int = 0): Boolean {
-        if (firstPointer1 > first.lastIndex) {
-            return false
-        }
+    if (str.length <= str2.length) return false
 
-        return if (first[firstPointer1] == second[secondPointer2]) {
-            val localPointer1 = firstPointer1 + 1
-            val localPointer2 = secondPointer2 + 1
+    var pointer1 = 0
+    var pointer2 = 0
 
-            if (localPointer1 > first.lastIndex || localPointer2 > second.lastIndex) {
+    while (pointer1 <= str.lastIndex) {
+        if (str[pointer1] == str2[pointer2]) {
+            if (pointer2 == str2.lastIndex) {
                 return true
             } else {
-                helper(first, second, localPointer1, localPointer2)
+                pointer1++
+                pointer2++
             }
         } else {
-            val p1 = firstPointer1 + 1
-
-            if (p1 > first.lastIndex) {
-                return false
-            } else {
-                helper(first, second, p1, secondPointer2)
-            }
+//            if(pointer2 < str2.lastIndex) {
+//                pointer2++
+//            } else {
+//                pointer1++
+//                pointer2 = 0
+            pointer1++
+            pointer2 = 0
+//            }
         }
     }
 
-    return helper(str, subStr)
+    return false
 }
 
 class IsSubstringTest {
-    @Test
-    fun `"abcd" does not contain "e"`() {
-        isSubstring("abcd", "e") shouldEqual false
-    }
-
-    @Test
-    fun `"abd" contains "ab"`() {
-        isSubstring("abc", "ab") shouldEqual true
-    }
-
     @Test
     fun `"abc" contains "bc"`() {
         isSubstring("abc", "bc") shouldEqual true
@@ -54,6 +44,21 @@ class IsSubstringTest {
     @Test
     fun `"ababc" contains "abc"`() {
         isSubstring("ababc", "abc") shouldEqual true
+    }
+
+    @Test
+    fun `"abcd" does not contains "abd"`() {
+        isSubstring("abcd", "abd") shouldEqual false
+    }
+
+    @Test
+    fun `"abcd" does not contain "e"`() {
+        isSubstring("abcd", "e") shouldEqual false
+    }
+
+    @Test
+    fun `"abd" contains "ab"`() {
+        isSubstring("abc", "ab") shouldEqual true
     }
 
     @Test
