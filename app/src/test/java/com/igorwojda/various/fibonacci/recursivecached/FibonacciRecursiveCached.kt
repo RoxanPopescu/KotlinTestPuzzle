@@ -4,11 +4,7 @@ import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
 private fun fibonacciSequenceRecursiveCached(n: Int, methodCache: MutableList<MethodCache> = mutableListOf()): Int {
-    if (n < 2) {
-        return n
-    }
-
-    return fibonacciSequenceRecursiveCached(n - 1) + fibonacciSequenceRecursiveCached(n - 2)
+    return 0
 }
 
 private data class MethodCache(val n: Int, val result: Int)
@@ -33,7 +29,6 @@ class FibonacciSeriesRecursiveMethodCacheTest {
     fun `calculates correct fib value for 3`() {
         fibonacciSequenceRecursiveCached(3) shouldEqual 2
     }
-
     @Test
     fun `calculates correct fib value for 4`() {
         fibonacciSequenceRecursiveCached(4) shouldEqual 3
