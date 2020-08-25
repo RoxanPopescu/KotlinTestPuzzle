@@ -4,16 +4,9 @@ import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
 private fun countUniqueValues(list: List<Int>): Int {
-    // println(list.distinct())
-
     return list.distinct().size
 }
 
-//fun main() {
-//    val list: List<Int> = listOf(3, 3, 3, 3, 5)
-//    val changedList = countUniqueValues(list)
-//    println("The list has : "+list.distinct().size + " unique elements")
-//}
 class CountUniqueValuesTest {
     @Test
     fun `countUniqueValues empty list return 0`() {
