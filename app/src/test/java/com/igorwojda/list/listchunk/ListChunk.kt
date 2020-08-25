@@ -2,9 +2,24 @@ package com.igorwojda.list.listchunk
 
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
+import java.lang.Math.*
 
 private fun chunk(list: List<Int>, size: Int): List<List<Int>> {
-    TODO("not implemented")
+
+    val resultList = mutableListOf<List<Int>>()
+    if(list.isEmpty())
+        return emptyList()
+    else
+    {
+        for( index in 0 until list.size step size){
+            if(index+size < list.size)
+                // resultList.add(list.subList(index, min(index+size, list.size)))
+                resultList.add(list.subList(index, (index + size).coerceAtMost(list.size)))
+            else
+                resultList.add(list.subList(index,list.size))
+        }
+    }
+    return resultList
 }
 
 class ListChunkTest {
