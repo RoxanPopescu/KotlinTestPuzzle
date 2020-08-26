@@ -26,3 +26,11 @@ maxSubListSum(listOf(4, 2, 7, 5, 8, 9, 5, 1), 3) // 22
 <summary>Hint 1</summary>
 Use sliding window
 </details>
+
+
+fun <T, R> Iterable<T>.windowed(
+    size: Int,
+    step: Int = 1,
+    partialWindows: Boolean = false,
+    transform: (List<T>) -> R
+): List<R>
