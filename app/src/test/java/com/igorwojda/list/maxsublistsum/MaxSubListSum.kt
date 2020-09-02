@@ -17,18 +17,18 @@ import org.junit.Test
  * Except for the first subarray of size n, for other subarrays, we compute
  * sum by removing the first element of the last window and
  * adding the last element of the current window. => O(m) complexity
- *
- *
  */
 private fun maxSubListSum(list: List<Int>, n: Int): Int? {
     val listSize = list.size
 
-    if( listSize < n) return null
-    else{
+    if (listSize < n) return null
+    else {
         // Compute sum of first window of size k
         var result = 0
-        for(i in 0 until n step 1){
-            result += list[i]
+        if (result != null) {
+            for (i in 0 until n step 1) {
+                result += list[i]
+            }
         }
         // Compute sums of remaining windows by
         // removing first element of previous
@@ -36,8 +36,8 @@ private fun maxSubListSum(list: List<Int>, n: Int): Int? {
         // current window.
 
         var curr_sum = result
-        for( i in n until  listSize step 1){
-            curr_sum+= list[i] - list[i-n]
+        for (i in n until listSize step 1) {
+            curr_sum += list[i] - list[i - n]
             result = max(result, curr_sum)!!
         }
         return result
@@ -51,6 +51,11 @@ private fun max(i1: Int?, i2: Int?): Int? {
         i1 == null && i2 != null -> i2
         else -> null
     }
+}
+
+fun main() {
+    val list = listOf(1, 2, 5, 2, 8, 1, 5)
+    println(maxSubListSum(list, 4))
 }
 
 class MaxSubListTest {

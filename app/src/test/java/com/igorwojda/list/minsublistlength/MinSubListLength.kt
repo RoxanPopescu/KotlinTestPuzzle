@@ -3,8 +3,36 @@ package com.igorwojda.list.minsublistlength
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
+/**
+ *  solution - 1
+ * - I traverse the array once, considering each element as the start of the subarray
+ * - I traverse the array twice, and I consider all elements as ending of the array
+ * On(n^2) complexity
+ * I compute the sum of the elements between start and end i.e curr_sum.
+ * If the curr_sum is greater than sum I will update the smallest length result.
+ * */
+
 fun minSubListLength(list: List<Int>, sum: Int): Int {
-    TODO("not implemented")
+
+    var min_length: Int? = null
+
+    for (start in list.indices) {
+        //init current sum with 1st elem
+        var curr_sum = list[start]
+
+        if (curr_sum > sum) {
+            return 1
+        }
+        for (end in start + 1 until list.size) {
+            //add last elem to current sum
+            curr_sum += list[end]
+
+            if (curr_sum >= sum) {
+                min_length = min(end - start + 1, min_length)
+            }
+        }
+    }
+    return min_length ?: 0
 }
 
 private fun min(i1: Int?, i2: Int?): Int? {
@@ -14,6 +42,11 @@ private fun min(i1: Int?, i2: Int?): Int? {
         i1 == null && i2 != null -> i2
         else -> null
     }
+}
+
+fun main() {
+    val list = listOf(1, 2, 11, 5, 9, 4, 6)
+    println(minSubListLength(list, 22))
 }
 
 class MinSubListLengthTest {
