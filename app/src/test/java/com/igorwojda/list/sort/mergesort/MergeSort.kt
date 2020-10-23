@@ -5,11 +5,40 @@ import org.junit.Test
 
 private fun mergeSort(list: List<Int>): List<Int> {
     // Take two sorted lists and merge them together into one sorted list
-    fun merge(left: MutableList<Int>, right: MutableList<Int>): MutableList<Int> {
-        TODO("not implemented")
+    if (list.size <= 1) {
+        return list
+    }
+    val middle = list.size / 2
+    return merge(mergeSort(list.subList(0,middle)).toMutableList(), mergeSort(list.subList(middle,list.size)).toMutableList())
+}
+
+fun merge(left: MutableList<Int>, right: MutableList<Int>): MutableList<Int> {
+
+    var indexLeft = 0
+    var indexRight = 0
+    var newList : MutableList<Int> = mutableListOf()
+
+    while (indexLeft < left.count() && indexRight < right.count()) {
+        if (left[indexLeft] <= right[indexRight]) {
+            newList.add(left[indexLeft])
+            indexLeft++
+        } else {
+            newList.add(right[indexRight])
+            indexRight++
+        }
     }
 
-    TODO("not implemented")
+    while (indexLeft < left.size) {
+        newList.add(left[indexLeft])
+        indexLeft++
+    }
+
+    while (indexRight < right.size) {
+        newList.add(right[indexRight])
+        indexRight++
+    }
+
+    return newList;
 }
 
 class MergeSortTest {
