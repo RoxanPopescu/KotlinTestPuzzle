@@ -14,39 +14,34 @@ import org.junit.Test
 
 fun minSubListLength(list: List<Int>, sum: Int): Int {
 
-    var min_length: Int? = null
+    var minLength: Int? = null
 
     for (start in list.indices) {
         //init current sum with 1st elem
-        var curr_sum = list[start]
+        var currSum = list[start]
 
-        if (curr_sum > sum) {
+        if (currSum > sum) {
             return 1
         }
         for (end in start + 1 until list.size) {
             //add last elem to current sum
-            curr_sum += list[end]
+            currSum += list[end]
 
-            if (curr_sum >= sum) {
-                min_length = min(end - start + 1, min_length)
+            if (currSum >= sum) {
+                minLength = min(end - start + 1, minLength)
             }
         }
     }
-    return min_length ?: 0
+    return minLength ?: 0
 }
 
 private fun min(i1: Int?, i2: Int?): Int? {
     return when {
-        i1 != null && i2 != null -> Math.min(i1, i2)
+        i1 != null && i2 != null -> kotlin.math.min(i1, i2)
         i1 != null && i2 == null -> i1
         i1 == null && i2 != null -> i2
         else -> null
     }
-}
-
-fun main() {
-    val list = listOf(1, 2, 11, 5, 9, 4, 6)
-    println(minSubListLength(list, 22))
 }
 
 class MinSubListLengthTest {
