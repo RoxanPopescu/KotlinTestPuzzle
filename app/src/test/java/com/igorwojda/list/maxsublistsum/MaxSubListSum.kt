@@ -53,10 +53,10 @@ private fun max(i1: Int?, i2: Int?): Int? {
     }
 }
 
-fun main() {
-    val list = listOf(1, 2, 5, 2, 8, 1, 5)
-    println(maxSubListSum(list, 4))
-}
+//fun main() {
+//    val list = listOf(1, 2, 5, 2, 8, 1, 5)
+//    println(maxSubListSum(list, 4))
+//}
 
 class MaxSubListTest {
     @Test
