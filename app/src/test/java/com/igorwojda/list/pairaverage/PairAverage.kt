@@ -15,8 +15,8 @@ import org.junit.Test
  *
  * O(nlogn) time complexity
  */
-fun hasAverage(list: List<Int>, average: Double): Boolean {
-
+//Iterative-version
+fun hasAverageIT(list: List<Int>, average: Double): Boolean {
     var localList = list.sorted()
     println("Sorted list: " + localList)
 
@@ -42,26 +42,28 @@ fun hasAverage(list: List<Int>, average: Double): Boolean {
     return false
 }
 
+//recursive version
+fun hasAverage(list: List<Int>, average: Double): Boolean {
+    return hasAverageEF(list, 0, list.size - 1, average)
+}
+
 fun hasAverageEF(list: List<Int>, start: Int, end: Int, average: Double): Boolean {
+
+    if (start >= end) return false
 
     val currentAvg: Double = list[start].plus(list[end]) / 2.00
 
     return when {
-        currentAvg.compareTo(average) == 0 -> true
-        currentAvg.compareTo(average) < 0 -> {
-            hasAverageEF(list.drop(0), start + 1, end, average)
+        currentAvg == average -> true
+        currentAvg < average -> {
+            hasAverageEF(list, start + 1, end, average)
         }
-        else -> {
-            hasAverageEF(list.takeLast(list.size), start, end - 1, average)
+        currentAvg > average -> {
+            hasAverageEF(list, start, end - 1, average)
         }
+        else -> false
     }
-    false
 }
-
-//fun main() {
-//    println("The average of any 2 nr from list is equal to given nr : "+hasAverage(listOf(3, 4, 7, 9), 6.5))
-//}
-
 
 private fun <E> MutableList<E>.aaa2(a: E) {
     set(0, a)
