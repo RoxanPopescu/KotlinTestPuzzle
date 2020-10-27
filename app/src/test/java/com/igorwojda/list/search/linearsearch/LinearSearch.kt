@@ -3,8 +3,18 @@ package com.igorwojda.list.search.linearsearch
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
+//private fun getIndex(list: List<String>, str: String): Int = list.indexOf(str)
 
-private fun getIndex(list: List<String>, str: String): Int = list.indexOf(str)
+private fun getIndex(list: List<String>, str: String): Int {
+    if (list.isEmpty()) return -1
+    else {
+        for (index in list.indices) {
+            if(list[index] == str) return index
+        }
+    }
+    return -1
+}
+
 
 class LinearSearchTest {
     @Test
