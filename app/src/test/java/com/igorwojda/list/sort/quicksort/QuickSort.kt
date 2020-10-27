@@ -3,8 +3,55 @@ package com.igorwojda.list.sort.quicksort
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
-private fun quickSort(list: MutableList<Int>, left: Int = 0, right: Int = list.lastIndex): List<Number> {
-    TODO("not implemented")
+/**
+ * One of the fastest and space efficient sorting algorithm - time complexity O(nlogn).
+ * Method: divide and conquer
+ */
+
+private fun quickSort(
+    list: MutableList<Int>,
+    left: Int = 0,
+    right: Int = list.lastIndex
+): List<Number> {
+
+    if (list.isEmpty()) {
+        return emptyList()
+    }
+    if (list.size <= 1) {
+        return list
+    }
+
+    val index = partition(list, left, right)
+
+    if (left < index - 1) {
+        quickSort(list, left, index - 1)
+    }
+    if (index < right) {
+        quickSort(list, index, right)
+    }
+    return list
+}
+
+fun partition(list: MutableList<Int>, l: Int, r: Int): Int {
+    var left = l
+    var right = r
+    val pivot = list[(left + right) / 2]
+
+    while (left <= right) {
+        //i get the elements on the left that should be to the right
+        while (list[left] < pivot) left++
+
+        // I get the elements on right that should be on left
+        while (list[right] > pivot) right--
+
+        //then swap elements, and move left and right indices
+        if (left <= right) {
+            list.swap(left, right)
+            left++
+            right--
+        }
+    }
+    return left
 }
 
 private fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
@@ -41,7 +88,15 @@ class QuickSortTest {
 
     @Test
     fun `quick sort 17, 4, 12, 19, 80, 75, 16`() {
-        quickSort(mutableListOf(17, 4, 12, 19, 80, 75, 16)) shouldEqual listOf(4, 12, 16, 17, 19, 75, 80)
+        quickSort(mutableListOf(17, 4, 12, 19, 80, 75, 16)) shouldEqual listOf(
+            4,
+            12,
+            16,
+            17,
+            19,
+            75,
+            80
+        )
     }
 
     @Test
