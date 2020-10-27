@@ -7,16 +7,14 @@ import java.lang.Math.*
 private fun chunk(list: List<Int>, size: Int): List<List<Int>> {
 
     val resultList = mutableListOf<List<Int>>()
-    if(list.isEmpty())
+    if (list.isEmpty())
         return emptyList()
-    else
-    {
-        for( index in 0 until list.size step size){
-            if(index+size < list.size)
-                // resultList.add(list.subList(index, min(index+size, list.size)))
+    else {
+        for (index in 0 until list.size step size) {
+            if (index + size < list.size)
                 resultList.add(list.subList(index, (index + size).coerceAtMost(list.size)))
             else
-                resultList.add(list.subList(index,list.size))
+                resultList.add(list.subList(index, list.size))
         }
     }
     return resultList
@@ -47,6 +45,10 @@ class ListChunkTest {
     @Test
     fun `chunk divides an list of 13 elements with chunk size 5`() {
         val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
-        chunk(list, 5) shouldEqual listOf(listOf(1, 2, 3, 4, 5), listOf(6, 7, 8, 9, 10), listOf(11, 12, 13))
+        chunk(list, 5) shouldEqual listOf(
+            listOf(1, 2, 3, 4, 5),
+            listOf(6, 7, 8, 9, 10),
+            listOf(11, 12, 13)
+        )
     }
 }

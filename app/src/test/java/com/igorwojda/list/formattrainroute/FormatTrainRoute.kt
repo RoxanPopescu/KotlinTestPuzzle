@@ -11,10 +11,8 @@ private fun formatTrainRoute(stations: List<String>): String {
         return result + stations[0]
     }
     val last = stations.takeLast(1).joinToString { it }
-
     val followingStations = stations.dropLast(1)
         .joinToString { it }
-
     return "$result$followingStations and $last"
 }
 

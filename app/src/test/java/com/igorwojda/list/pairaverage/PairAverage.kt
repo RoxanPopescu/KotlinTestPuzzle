@@ -3,9 +3,65 @@ package com.igorwojda.list.pairaverage
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
+
+/**
+ * Hint to use double pointer.
+ * I found a solution involving sorting the list ascending and then using
+ * 2 indices - start and end, for the 2 end-points of the array.
+ * i.e A double pointer to mark the start and end of the list.
+ * Loop through the list until start < end and reduce the search space like this:
+ * If the given average > than the avg of start and end , shift left pointer (start ++ to increase value
+ * If the given average < than the avg of start and end, shift the right pointer ( end- to decrease the value
+ *
+ * O(nlogn) time complexity
+ */
 fun hasAverage(list: List<Int>, average: Double): Boolean {
-    TODO("not implemented")
+
+    var localList = list.sorted()
+    println("Sorted list: " + localList)
+
+    var start = 0
+    var end = localList.size - 1
+
+    while (start < end) {
+
+        var currentAvg: Double = localList[start].plus(localList[end]) / 2.00
+        println("currentAvg = $currentAvg" + "( " + localList[start] + "," + localList[end] + "), avg=$average \n")
+
+        if (currentAvg.compareTo(average) == 0) {
+            println("(" + localList[start] + "," + localList[end] + ")")
+            return true
+        } else {
+            if (currentAvg.compareTo(average) < 0) {
+                start++
+            } else {
+                end--
+            }
+        }
+    }
+    return false
 }
+
+fun hasAverageEF(list: List<Int>, start: Int, end: Int, average: Double): Boolean {
+
+    val currentAvg: Double = list[start].plus(list[end]) / 2.00
+
+    return when {
+        currentAvg.compareTo(average) == 0 -> true
+        currentAvg.compareTo(average) < 0 -> {
+            hasAverageEF(list.drop(0), start + 1, end, average)
+        }
+        else -> {
+            hasAverageEF(list.takeLast(list.size), start, end - 1, average)
+        }
+    }
+    false
+}
+
+//fun main() {
+//    println("The average of any 2 nr from list is equal to given nr : "+hasAverage(listOf(3, 4, 7, 9), 6.5))
+//}
+
 
 private fun <E> MutableList<E>.aaa2(a: E) {
     set(0, a)
@@ -55,3 +111,5 @@ class TargetAverageTest {
         hasAverage(listOf(3, 5, 7), 3.5) shouldEqual false
     }
 }
+
+

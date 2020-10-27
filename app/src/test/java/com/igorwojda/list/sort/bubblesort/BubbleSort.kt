@@ -3,9 +3,42 @@ package com.igorwojda.list.sort.bubblesort
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
-private fun bubbleSort(list: List<Int>): List<Number> {
-    TODO("not implemented")
+
+/**
+ * Idea of this sorting method - BUBBLE SORT
+ * If we have a list of integers with size n,
+ * then we iterate over the list from left to right
+ * and for each position we compare the number on
+ * that position to the number of next position.
+ * If they are in wrong order then will swap them.
+ * Suppose we sort ascending !
+ * At each step we have n-j elements to sort, where
+ * j is the start nr(0 initially)
+ */
+
+fun swapValues(list:IntArray, a: Int, b: Int) {
+    val temp = list[b]
+    list[b] = list[a]
+    list[a] = temp
 }
+
+private fun bubbleSort(list: List<Int>): List<Number> {
+    val sortedList = list.toIntArray()
+
+    for (i in 0 until (sortedList.size - 1)) {
+        for (j in 0 until (sortedList.size - i - 1)) {
+            if (sortedList[j] > sortedList[j + 1]) {
+                swapValues(sortedList,j,j+1)
+            }
+        }
+    }
+    return sortedList.toList()
+}
+
+//private fun bubbleSort2(list: List<Int>): List<Number> {
+//   return list.bubble
+//
+//}
 
 class BubbleSortTest {
     @Test

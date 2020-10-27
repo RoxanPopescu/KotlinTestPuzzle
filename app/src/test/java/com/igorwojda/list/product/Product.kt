@@ -4,7 +4,13 @@ import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
 private fun product(list: List<Int>): Int {
-    TODO("not implemented")
+    return when {
+        list.isEmpty() -> 0
+        list.size == 1 -> list.first()
+        else -> {
+              list[list.size-1] * product(list.take(list.size-1))
+        }
+    }
 }
 
 class ProductTest {

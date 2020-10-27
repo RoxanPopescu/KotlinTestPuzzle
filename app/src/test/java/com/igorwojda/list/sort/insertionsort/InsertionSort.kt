@@ -3,8 +3,30 @@ package com.igorwojda.list.sort.insertionsort
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
+/**
+ * The idea of insertion sort is that you insert each element at its
+ * correct position, by comparing each two consecutive/near elements
+ * and swap them if they are not in order.
+ * For each element i I compare it with all the elements that follow i,
+ * until the end of the array
+ */
 private fun insertionSort(list: MutableList<Int>): List<Int> {
-    TODO("not implemented")
+   if(list.isEmpty() || list.size < 2){
+       return list
+   }else{
+       for(i in 1 until list.size){
+           val item = list[i]
+           var j = i
+
+           while(j > 0 && item < list[j -1]){
+               //make space for the element to insert
+               list[j] = list[j-1]
+               j -= 1
+           }
+           list[j] = item
+       }
+   }
+    return list
 }
 
 class InsertionSortTest {

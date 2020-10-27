@@ -3,13 +3,41 @@ package com.igorwojda.list.minsublistlength
 import org.amshove.kluent.shouldEqual
 import org.junit.Test
 
+/**
+ *  solution - 1
+ * - I traverse the array once, considering each element as the start of the subarray
+ * - I traverse the array twice, and I consider all elements as ending of the array
+ * On(n^2) complexity
+ * I compute the sum of the elements between start and end i.e curr_sum.
+ * If the curr_sum is greater than sum I will update the smallest length result.
+ * */
+
 fun minSubListLength(list: List<Int>, sum: Int): Int {
-    TODO("not implemented")
+
+    var minLength: Int? = null
+
+    for (start in list.indices) {
+        //init current sum with 1st elem
+        var currSum = list[start]
+
+        if (currSum > sum) {
+            return 1
+        }
+        for (end in start + 1 until list.size) {
+            //add last elem to current sum
+            currSum += list[end]
+
+            if (currSum >= sum) {
+                minLength = min(end - start + 1, minLength)
+            }
+        }
+    }
+    return minLength ?: 0
 }
 
 private fun min(i1: Int?, i2: Int?): Int? {
     return when {
-        i1 != null && i2 != null -> Math.min(i1, i2)
+        i1 != null && i2 != null -> kotlin.math.min(i1, i2)
         i1 != null && i2 == null -> i1
         i1 == null && i2 != null -> i2
         else -> null
